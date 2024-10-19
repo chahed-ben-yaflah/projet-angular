@@ -1,0 +1,36 @@
+<!--1er type de binding : interpolation -->
+<h2>{{title}}</h2>
+<!-- 2eme type de binding: event  binding -->
+<button class="btn btn-success mb-3"(click)="changeAction('add')">Ajouter un livre</button>
+<!-- affichage conditionnel: directive -->
+@if (action== "add")
+ {<app-book-add [lastId]="books[books.length- 1].id"
+ (bookCreated)="addBook($event)"
+ ></app-book-add>}
+ @if(action=="edit"){
+  <app-edit-book [NvtId]="books[books.length- 1].id"(bookediter)="bookEdit($event)"></app-edit-book>
+ }
+
+<table class="table">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">#</th>
+        <th scope="col">titre</th>
+        <th scope="col">auteur</th>
+        <th scope="col">prix</th>
+        <th scope="col">editer</th>
+        <th scope="col">supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- affichagr rn boucle:directive ngFor (avant la version 17) ou @for(à partir de la version 17)-->
+      @for (book of books; track $index) {
+      <tr>
+        <th scope="row">{{book.id}}</th>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.price}}</td>
+        <td><button class="btn btn-primary">Editer</button></td>
+        <td><button class="btn btn-danger">Supprimer</button></td>
+      </tr>
+    }
